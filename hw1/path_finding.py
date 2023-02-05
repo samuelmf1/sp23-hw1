@@ -104,6 +104,8 @@ def GVD_path(
             current = frontier.pop(0) # queue
         elif mode == PathPlanMode.DFS:
             current = frontier.pop() # stack
+        else:
+            return None, None, None
 
         for nbr in neighbors(grid, current[0], current[1]):
             if nbr == B:
@@ -111,10 +113,10 @@ def GVD_path(
                 path = []
                 cur = nbr
                 while cur != A:
-                    path.append(cur)
+                    path.insert(0, cur)
                     cur = pointers[cur]
                 path.append(A)
-                return [reversed(path)], pointers, frontier_size
+                return path, pointers, frontier_size
             if nbr not in pointers:
                 frontier_size.append(frontier_size[-1]+1)
                 frontier.append(nbr)
