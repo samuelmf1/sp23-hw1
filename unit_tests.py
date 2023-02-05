@@ -184,8 +184,8 @@ def main():
     # ==========================================================================
     # ==== comment / uncomment the following three tests to test your code =====
     bfs, dfs = test_part1(grid, GVD)
-    start_path = test_part2(grid, GVD)
-    end_path = test_part3(grid, GVD)
+    # start_path = test_part2(grid, GVD)
+    # end_path = test_part3(grid, GVD)
     # ==========================================================================
     # ==========================================================================
 

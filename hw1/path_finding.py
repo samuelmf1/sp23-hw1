@@ -62,7 +62,6 @@ def cell_to_GVD_a_star(
     path = None
     return path, reached, frontier_size
 
-
 def GVD_path(
     grid: npt.ArrayLike,
     GVD: Set[Tuple[int, int]],
@@ -99,10 +98,29 @@ def GVD_path(
     frontier_size = [0]
 
     while len(frontier) > 0:
-        # TODO:implement this
-        pass
+        frontier_size.append(frontier_size[-1]-1)
 
-    return None, None, None
+        if mode == PathPlanMode.BFS:
+            current = frontier.pop(0) # queue
+        elif mode == PathPlanMode.DFS:
+            current = frontier.pop() # stack
+
+        for nbr in neighbors(grid, current[0], current[1]):
+            if nbr == B:
+                pointers[nbr] = current
+                path = []
+                cur = nbr
+                while cur != A:
+                    path.append(cur)
+                    cur = pointers[cur]
+                path.append(A)
+                return [reversed(path)], pointers, frontier_size
+            if nbr not in pointers:
+                frontier_size.append(frontier_size[-1]+1)
+                frontier.append(nbr)
+                pointers[nbr] = current
+
+    return [(None, )], pointers, frontier_size
 
 
 def compute_path(
